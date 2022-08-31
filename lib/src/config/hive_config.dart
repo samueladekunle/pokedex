@@ -1,3 +1,8 @@
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pokedex/src/features/pokemon/domain/pokemon.dart';
+
+typedef PokemonBox = Box<Pokemon>;
+
 class HiveTypeId {
   const HiveTypeId._();
 
