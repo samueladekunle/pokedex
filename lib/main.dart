@@ -1,20 +1,39 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pokedex/src/config/hive_config.dart';
+import 'package:pokedex/src/features/pokemon/data/favourite_pokemon_repository.dart';
+import 'package:pokedex/src/features/pokemon/domain/pokemon.dart';
+import 'package:pokedex/src/features/pokemon/domain/resource.dart';
 
 import 'src/app.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
 
 void main() async {
-  // Set up the SettingsController, which will glue user settings to multiple
-  // Flutter Widgets.
-  final settingsController = SettingsController(SettingsService());
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Hive.initFlutter();
 
-  // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
-  await settingsController.loadSettings();
+    Hive.registerAdapter(ResourceAdapter());
+    Hive.registerAdapter(PokemonAdapter());
+    Hive.registerAdapter(PokemonStatAdapter());
+    Hive.registerAdapter(PokemonTypeAdapter());
 
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
-  runApp(MyApp(settingsController: settingsController));
+    final favouritePokemonBox =
+        await Hive.openBox<Pokemon>(HiveBoxName.favouritePokemon);
+
+    FlutterError.onError = (details) {
+      FlutterError.presentError(details);
+    };
+
+    runApp(ProviderScope(
+      overrides: [
+        favouritePokemonBoxProvider.overrideWithValue(favouritePokemonBox),
+      ],
+      child: const PokedexApp(),
+    ));
+  }, (error, stack) {
+    //
+  });
 }
