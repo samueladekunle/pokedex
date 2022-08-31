@@ -1,6 +1,16 @@
 {
-  "appTitle": "pokedex",
+  "appTitle": "Pokedex",
   "@appTitle": {
     "description": "The title of the application"
-  }
+  },
+  "allPokemonsTabTitle": "All Pokemons",
+  "favouritePokemonsTabTitle": "Favourites",
+  "height": "Height",
+  "weight": "Weight",
+  "bmi": "BMI",
+  "baseStats": "Base stats",
+  "noFavouritePokemonFoundMessage": "Your favourite pokemons will appear here.",
+  "markAsFavouriteButtonLabel": "Mark as favourite",
+  "removeFromFavouritesLabel": "Remove from favourites",
+  "retryButtonLabel": "Retry"
 }
