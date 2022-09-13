@@ -92,11 +92,11 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                   ...pokemon.stats.map((stat) => PokemonDetailStatTile(
                         stat: stat,
                       )),
-                  const PokemonDetailStatTile(
+                  PokemonDetailStatTile(
                     stat: PokemonStat(
-                      baseStat: 0,
+                      baseStat: pokemon.averagePower,
                       effort: 0,
-                      stat: Resource(url: '', name: 'Avg. Power'),
+                      stat: const Resource(url: '', name: 'Avg. Power'),
                     ),
                   ),
                   const VGap(120),
