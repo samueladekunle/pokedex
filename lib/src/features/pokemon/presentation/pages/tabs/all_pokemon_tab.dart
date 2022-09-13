@@ -14,7 +14,8 @@ class AllPokemonTab extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _AllPokemonTabState();
 }
 
-class _AllPokemonTabState extends ConsumerState<AllPokemonTab> {
+class _AllPokemonTabState extends ConsumerState<AllPokemonTab>
+    with AutomaticKeepAliveClientMixin<AllPokemonTab> {
   final _scrollController = ScrollController();
 
   void _paginate() {
@@ -35,6 +36,9 @@ class _AllPokemonTabState extends ConsumerState<AllPokemonTab> {
     _scrollController.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {

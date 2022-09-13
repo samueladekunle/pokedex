@@ -12,7 +12,8 @@ class FavouritePokemonTab extends ConsumerStatefulWidget {
       _FavouritePokemonTabState();
 }
 
-class _FavouritePokemonTabState extends ConsumerState<FavouritePokemonTab> {
+class _FavouritePokemonTabState extends ConsumerState<FavouritePokemonTab>
+    with AutomaticKeepAliveClientMixin<FavouritePokemonTab> {
   final tabKey = const PageStorageKey('favourite_pokemon_tab');
 
   final _scrollController = ScrollController();
@@ -22,6 +23,9 @@ class _FavouritePokemonTabState extends ConsumerState<FavouritePokemonTab> {
     _scrollController.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
